@@ -1,5 +1,5 @@
 /**************************
-* Author: Randy Guardado
+* Author: Randy Guardado & Steven Espinosa
 *
 * Hangman Main
 **************************/
