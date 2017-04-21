@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class HangmanWordList{
-   public void Start(int diff){
+   public void WordList(int diff){
       //Arrays allow difficulty selection
       String words[] = new String[4];
       Scanner input = new Scanner(System.in);
@@ -32,10 +32,46 @@ public class HangmanWordList{
             words[3] = "sophisticated";
             break;
       }
-      String word;
+      String wordToGuess;
       Random rand = new Random();
-      int w1 = rand.nextInt(4);
-      word = words[w1];
-      System.out.println("Your word is: " + word);
+      int assignedWord = rand.nextInt(4);
+      wordToGuess = words[assignedWord];
+      //Move all following code to HangmanPlay
+      int playerGuess = wordToGuess.length();
+      int attempts = 10;
+      
+      char[] blanks = new char[wordToGuess.length()];
+      for (int i = 0; i < wordToGuess.length(); i++) {
+         blanks[i] = '*';
+      }
+      System.out.println();
+      
+      while(playerGuess > 0 && attempts > 0 ){
+         System.out.println();
+         for ( int i = 0; i < wordToGuess.length(); i++) {
+           System.out.print(" " + blanks[i] + " ");
+         }
+         System.out.println();
+
+         System.out.println("You have " + attempts + " tries to make a guess");
+         System.out.println("Please enter your guess: ");
+
+         char guess = input.next().charAt(0);
+         boolean iscorrect = false;
+         for (int i = 0; i < blanks.length; i++) {
+             if(wordToGuess.charAt(i) == guess)
+             {
+                 blanks[i] = guess;
+                 playerGuess--;
+                 iscorrect = true;
+             }
+         }
+
+         if(!iscorrect)
+             attempts--;
+     }
+      if(playerGuess == 0)
+         System.out.println("Congratulations you win! Your word was: " + wordToGuess);
+         else System.out.println("Loser your word was: " + wordToGuess);
    }
 }
